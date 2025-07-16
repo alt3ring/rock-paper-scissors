@@ -15,65 +15,53 @@ function getComputerChoice()
   }
 }
 
-function getHumanChoice()
-{
-  let choice = prompt("Please enter your choice: ");
-  choice = choice.toLowerCase();
-  if(choice!="rock" && choice!="paper" && choice!="scissors")
-  {
-    return "error";
-  }
-  else{
-    return choice;
-  }
-}
+
 
 function playRound(humanChoice, computerChoice)
 {
+  let resultsDiv = document.querySelector(".resultsDisplay");
   if(humanChoice=="rock" && computerChoice=="paper")
   {
-    alert("computer rolled paper, you LOSE!");
-    return 0;
+    computerScore++;
+    resultsDiv.textContent = "computer rolled paper, you LOSE!\nhuman score: "+humanScore+"\ncomputer score: "+computerScore;
+
   }
   else if(humanChoice=="paper" && computerChoice=="rock")
   {
-    alert("computer rolled rock, you WIN!");
-    return 1;
+    humanScore++;
+    resultsDiv.textContent = "computer rolled rock, you WIN!\nhuman score: "+humanScore+"\ncomputer score: "+computerScore;
   }
   else if(humanChoice=="paper" && computerChoice=="scissors")
   {
-    alert("computer rolled scissors, you LOSE!");
-    return 0;
+    computerScore++;
+    resultsDiv.textContent = "computer rolled scissors, you LOSE!\nhuman score: "+humanScore+"\ncomputer score: "+computerScore;
   }
   else if(humanChoice=="scissors" && computerChoice=="paper")
   {
-    alert("computer rolled paper, you WIN!");
-    return 1;
+    humanScore++;
+    resultsDiv.textContent = "computer rolled paper, you WIN!\nhuman score: "+humanScore+"\ncomputer score: "+computerScore;
   }
   else if(humanChoice=="scissors" && computerChoice=="rock")
   {
-    alert("computer rolled rock, you LOSE!");
-    return 0;
+    computerScore++;
+    resultsDiv.textContent = "computer rolled rock, you LOSE!\nhuman score: "+humanScore+"\ncomputer score: "+computerScore;
   }
   else if(humanChoice=="rock" && computerChoice=="scissors")
   {
-    alert("computer rolled scissors, you WIN!");
-    return 1;
+    humanScore++;
+    resultsDiv.textContent = "computer rolled scissors, you WIN!\nhuman score: "+humanScore+"\ncomputer score: "+computerScore;
   }
   else if(humanChoice=="rock" && computerChoice=="rock")
   {
-    alert("computer rolled rock, TIE!");
-    return 2;
+    resultsDiv.textContent = "computer rolled rock, TIE!\nhuman score: "+humanScore+"\ncomputer score: "+computerScore;
   }
   else if(humanChoice=="paper" && computerChoice=="paper")
   {
-    alert("computer rolled paper, TIE!");
-    return 2;
+    resultsDiv.textContent = "computer rolled paper, TIE!\nhuman score: "+humanScore+"\ncomputer score: "+computerScore;
   }
   else if(humanChoice=="scissors" && computerChoice=="scissors")
   {
-    alert("computer rolled scissors, TIE!");
-    return 2;
+    resultsDiv.textContent = "computer rolled scissors, TIE!\nhuman score: "+humanScore+"\ncomputer score: "+computerScore;
   }
 }
 
@@ -81,40 +69,42 @@ let humanScore = 0;
 let computerScore = 0;
 let humanChoice = "";
 let computerChoice = "";
-let result = 0;
+let roundsPlayed=0;
+const finalResult = document.querySelector(".finalResult");
 
-for(let i=0; i<4; i++)
-{
-  humanChoice = getHumanChoice();
+
+let buttons = document.querySelectorAll("button");
+buttons.forEach((button) => button.addEventListener('click', (e) => {
+  if(e.target.textContent == "rock")
+  {
+    humanChoice = "rock";
+  }
+  else if(e.target.textContent == "paper")
+  {
+    humanChoice = "paper";
+  }
+  else{
+    humanChoice = "scissors";
+  }
+  roundsPlayed++;
   computerChoice = getComputerChoice();
-  if(humanChoice=="error")
-  {
-    alert("that is not a valid choice, program terminating.....");
-    i--;
-    continue;
-  }
-  result = playRound(humanChoice, computerChoice);
-  if(result == 0)
-  {
-    computerScore++;
-  }
-  else if(result == 1)
-  {
-    humanScore++;
-  }
-  else
-  {
-    continue;
-  }
-}
-if(humanScore>computerScore)
+  playRound(humanChoice, computerChoice);
+if(roundsPlayed==5)
 {
-  alert("human score: "+humanScore+"\ncomputer Score: "+computerScore+"\nYOU WIN!");
+  if(humanScore>computerScore)
+  {
+    finalResult.textContent = "5 ROUNDS PLAYED! YOU WIN!";
+  }
+  else if(computerScore>humanScore)
+  {
+    finalResult.textContent = "5 ROUNDS PLAYED! COMPUTER WINS!";
+  }
+  else{
+    finalResult.textContent = "5 ROUNDS PLAYED! TIE!";
+  }
+  buttons.forEach(btn => btn.disabled = true);
 }
-else if(computerScore>humanScore)
-{
-  alert("human score: "+humanScore+"\ncomputer Score: "+computerScore+"\nYOU LOSE!");
-}
-else{
-  alert("human score: "+humanScore+"\ncomputer Score: "+computerScore+"\nTIE!");
-}
+
+}))
+
+

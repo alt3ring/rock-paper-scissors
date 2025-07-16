@@ -1,0 +1,50 @@
+body{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.title{
+  display:flex;
+  justify-content: center;
+  padding:20px;
+  background-color:palegoldenrod;
+  border: 1px solid black;
+  font-weight: bold;
+  font-size:30px;
+
+}
+
+.buttons{
+  display:flex;
+  justify-content:center;
+  padding:20px;
+  gap: 20px;
+
+}
+
+button{
+  padding:20px;
+}
+
+.resultsDisplay{
+  display:flex;
+  justify-content:center;
+  background-color: darkgoldenrod;
+  padding:40px;
+  font-size:15px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.finalResult{
+  display:flex;
+  background-color: darkgreen;
+  font-size:25px;
+  font-weight: bold;
+  font-style: italic;
+  color: white;
+  justify-content:center;
+  padding:50px;
+
+}
